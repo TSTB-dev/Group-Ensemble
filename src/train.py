@@ -22,6 +22,7 @@ def get_args():
     parser.add_argument("--model", type=str, default="resnet18")
     parser.add_argument("--batch_size", type=int, default=128)
     parser.add_argument("--num_epochs", type=int, default=200)
+    parser.add_argument("--num_ensembles", type=int, default=4)
     parser.add_argument("--scheduler_type", type=str, default="cyclic_cosine")
     parser.add_argument("--max_lr", type=float, default=0.1)
     parser.add_argument("--min_lr", type=float, default=0.0)
@@ -76,7 +77,7 @@ def train(args):
     
     log.info(f"Creating scheduler: {args.scheduler_type}")
     if args.scheduler_type == "cyclic_cosine":
-        scheduler = CyclicCosineLRScheduler(optimizer, num_iters_total, args.max_lr, args.min_lr)
+        scheduler = CyclicCosineLRScheduler(optimizer, args.max_lr, args.min_lr, num_iters_total)
     else:
         raise ValueError("Invalid scheduler")
     
