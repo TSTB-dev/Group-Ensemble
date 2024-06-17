@@ -62,13 +62,17 @@ def evaluate(args):
             for inputs, labels in test_loader:
                 inputs, labels = inputs.to(device), labels.to(device)
                 outputs = model(inputs)  # (B, G, C)
-                for out in outputs.split(1, dim=1):
+                for i, out in enumerate(outputs.split(1, dim=1)):
                     out = out.squeeze(1)
                     _, predicted = torch.max(out, 1)
-                    total_list[0] += labels.size(0)
-                    correct_list[0] += (predicted == labels).sum().item()
+                    total_list[i] += labels.size(0)
+                    correct_list[i] += (predicted == labels).sum().item()
     
         acc_list = [correct / total for correct, total in zip(correct_list, total_list)]    
         for i, acc in enumerate(acc_list):
             log.info(f"Test Accuracy Single for Ensemble[{i}]: {acc}")
+
+if __name__ == "__main__":
+    args = get_args()
+    evaluate(args)
     

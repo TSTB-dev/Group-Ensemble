@@ -6,4 +6,4 @@ python3 ./src/evaluate.py \
     --device cuda \
     --eval_single \
     --batch_size 64 \
-    --save_dir # TODO: save_dir
+    --save_dir /home/sakai/projects/NDE/Group-Ensemble/wandb/run-20240617_134019-9i05ebro/files/
