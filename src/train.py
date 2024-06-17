@@ -101,8 +101,7 @@ def train(args):
                 wandb.log({"loss": loss.item()})
     log.info("Training finished")
     
-    log.info(f"Saving model to {args.save_dir}")
-    save_path = os.path.join(args.save_dir, f"{args.dataset}_{args.model}.pth")
+    save_path = os.path.join(f"{wandb.run.dir}", f"{args.dataset}_{args.model}.pth")
     torch.save(model.state_dict(), save_path)
     log.info(f"Model saved to {save_path}")
 
